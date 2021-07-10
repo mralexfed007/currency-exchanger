@@ -16,7 +16,6 @@ export default function App() {
   useEffect(() => {
     clearInterval(timer)
     const stopWatch$ = new Observable(observer => {
-     
        if (status === 'stop') {
         clearInterval(timer);
         observer.complete()
