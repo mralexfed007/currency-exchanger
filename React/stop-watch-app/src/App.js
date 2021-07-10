@@ -15,21 +15,24 @@ export default function App() {
   }, [clickCount])
   useEffect(() => {
     clearInterval(timer)
-    const unsubscribe$ = new Observable(observer => {
-      setTimer(setInterval(() => {
+    const stopWatch$ = new Observable(observer => {
+     
        if (status === 'stop') {
-        clearInterval(timer); 
-      } else if (status === 'run') {
         clearInterval(timer);
-        setSec(val => val + 1000);
-        observer.next()
+        observer.complete()
+        console.log('stop')
+      } else if (status === 'run') {
+          setTimer(setInterval(() => {
+            setSec(val => val + 1000);
+            console.log('run')      
+        }, 1000));
       }
-     }, 1000));
-     return () => {
-      clearInterval(timer);
-     }
     });
-    unsubscribe$.subscribe()
+    stopWatch$.subscribe({
+      complete: () => {
+        console.log('complete')
+      }
+    })
   }, [status]);
  
   const start = useCallback(() => {
