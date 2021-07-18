@@ -1,0 +1,17 @@
+.container {
+  margin: 20px auto;
+  width: max-content;
+}
+
+.title {
+  text-align: center;
+}
+
+.control {
+  display: flex;
+  align-items:center;
+}
+
+.icon {
+  margin: 0 10px;
+}
