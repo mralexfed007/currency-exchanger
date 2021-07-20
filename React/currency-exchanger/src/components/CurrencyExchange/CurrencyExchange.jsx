@@ -14,7 +14,23 @@ export const CurrencyExchange = () => {
     dispatch(actions.switchA('UAH'))
   }, [dispatch])
 
-  const numRound = useCallback((num) => Math.round(num * 100) / 100, [])
+  const numRound = useCallback((num) => Math.round(num * 100) / 100, []);
+  const handleChange = useCallback((target, editedField) => {
+    let  val = null;
+
+    if (editedField === 'a') {
+      val = /^[0-9]+$/.test(target.value)
+    ? +target.value
+    : value
+      dispatch(actions.editA(val));
+    } else {
+      val = /^[0-9]+$/.test(target.value)
+    ? +target.value
+    : value * currentRate
+      dispatch(actions.editB(val));
+    }
+      
+  }, [value, dispatch, currentRate])
 
   return (
     <div className="container">
@@ -38,7 +54,7 @@ export const CurrencyExchange = () => {
             <p class="control">
               <input
                 value={numRound(value)}
-                onChange={({target}) => dispatch(actions.editA(target.value))}
+                onChange={({target}) => handleChange(target, 'a')}
                 class="input"
                 type="text"
                 placeholder="Amount of money"
@@ -52,7 +68,7 @@ export const CurrencyExchange = () => {
             <p class="control">
               <input
                 value={numRound(value * currentRate)}
-                onChange={({target}) => dispatch(actions.editB(target.value))}
+                onChange={({target}) => handleChange(target, 'b')}
                 class="input"
                 type="text"
                 placeholder="Amount of money"

@@ -13,13 +13,13 @@ export default function reducer(state = initialState, action) {
     case 'EDIT_VALUE_A':
       return {
         ...state,
-        value: +action.value,
+        value: action.value,
       }
       break;
     case 'EDIT_VALUE_B':
       return {
         ...state,
-        value: +action.value / state.currentRate,
+        value: action.value / state.currentRate,
       }
       break;
     case 'SWITCH_CURRENCY_A':
